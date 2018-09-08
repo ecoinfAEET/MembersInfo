@@ -4,13 +4,12 @@ output:
   flexdashboard::flex_dashboard:
     orientation: rows
     vertical_layout: scroll
-    fig_width: 3
-    fig_height: 3
     theme: cerulean
     source_code: https://github.com/ecoinfAEET/MembersInfo
 ---
 
-Miembros del [grupo de Ecoinformática](http://www.aeet.org/EcoInformatica_383_p.htm) de la [Asociación Española de Ecología Terrestre (AEET)](http://www.aeet.org/). Para darte de alta rellena tus datos [aquí](https://docs.google.com/forms/d/e/1FAIpQLScCIlXvN2LtOkj1MNFPK-UzTfkK8jg5ZMXT0OgjyUUJdndo2Q/viewform?c=0&w=1).
+**Miembros del [grupo de Ecoinformática](http://www.aeet.org/EcoInformatica_383_p.htm) de la [Asociación Española de Ecología Terrestre (AEET)](http://www.aeet.org/). Para darte de alta rellena tus datos [aquí](https://docs.google.com/forms/d/e/1FAIpQLScCIlXvN2LtOkj1MNFPK-UzTfkK8jg5ZMXT0OgjyUUJdndo2Q/viewform?c=0&w=1). Si quieres actualizar o corregir un error en los datos por favor abre un 'issue' [en el repo](https://github.com/ecoinfAEET/MembersInfo) o escribe a ecoinf.aeet@gmail.com.**
+
 
 
 ```{r setup, include=FALSE}
@@ -21,7 +20,6 @@ library(flexdashboard)
 ```{r echo=FALSE}
 members <- readr::read_csv("MembersInfo.csv")
 members <- dplyr::arrange(members, Nombre)
-#m1 <- members[1,]
 ```
 
 ```{r echo=FALSE}
@@ -34,9 +32,13 @@ print_member <- function(member) {
   
   cat("\n\n###", member$Nombre, "{data-width=100}","\n\n")
   
-  ## get twitter handle
-  tw.handle <- sub("@", "", member$`Cuenta de Twitter`)
-  cat("![](", paste0("https://twitter.com/", tw.handle, "/profile_image?size=normal"), "){width=250px}\n", sep = "")
+  ## get twitter picture
+  tw.handle <- member$`Cuenta de Twitter`
+  if (!is.na(tw.handle)) {
+      tw.handle <- sub("@", "", member$`Cuenta de Twitter`)
+      cat("![](", paste0("https://twitter.com/", tw.handle, "/profile_image?size=bigger"), ")\n", sep = "")
+  }
+
   
   
   ## Second panel
@@ -49,9 +51,9 @@ print_member <- function(member) {
   
   cat(member$`Correo Electrónico`, "\n\n")
   
-  cat("\n[Web]() ", #member$`Pagina web`, ") ", 
-      "[Twitter](https://twitter.com/", tw.handle, ") ", 
-      "[GitHub](https://github.com/", member$`Cuenta de GitHub`, ")\n\n", sep = "")
+  cat("\n[Web](", ifelse(!is.na(member$`Pagina web`), member$`Pagina web`, ""), ") / ", 
+      "[Twitter](https://twitter.com/", ifelse(!is.na(tw.handle), tw.handle, ""), ") / ", 
+      "[GitHub](https://github.com/", ifelse(!is.na(member$`Cuenta de GitHub`), member$`Cuenta de GitHub`, ""), ")\n\n", sep = "")
   
 
   
