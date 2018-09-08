@@ -7,6 +7,7 @@ output:
     fig_width: 3
     fig_height: 3
     theme: cerulean
+    source_code: https://github.com/ecoinfAEET/MembersInfo
 ---
 
 Miembros del [grupo de Ecoinformática](http://www.aeet.org/EcoInformatica_383_p.htm) de la [Asociación Española de Ecología Terrestre (AEET)](http://www.aeet.org/). Para darte de alta rellena tus datos [aquí](https://docs.google.com/forms/d/e/1FAIpQLScCIlXvN2LtOkj1MNFPK-UzTfkK8jg5ZMXT0OgjyUUJdndo2Q/viewform?c=0&w=1).
