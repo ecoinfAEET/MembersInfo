@@ -8,7 +8,9 @@ output:
     source_code: https://github.com/ecoinfAEET/MembersInfo
 ---
 
-**Miembros del [grupo de Ecoinformática](http://www.aeet.org/EcoInformatica_383_p.htm) de la [Asociación Española de Ecología Terrestre (AEET)](http://www.aeet.org/). Para darte de alta rellena tus datos [aquí](https://docs.google.com/forms/d/e/1FAIpQLScCIlXvN2LtOkj1MNFPK-UzTfkK8jg5ZMXT0OgjyUUJdndo2Q/viewform?c=0&w=1). Si quieres actualizar o corregir un error en los datos por favor abre un 'issue' [en el repo](https://github.com/ecoinfAEET/MembersInfo) o escribe a ecoinf.aeet@gmail.com.**
+**Miembros del [grupo de Ecoinformática](http://www.aeet.org/EcoInformatica_383_p.htm) de la [Asociación Española de Ecología Terrestre (AEET)](http://www.aeet.org/).** 
+
+**Para darte de alta rellena tus datos [aquí](https://docs.google.com/forms/d/e/1FAIpQLScCIlXvN2LtOkj1MNFPK-UzTfkK8jg5ZMXT0OgjyUUJdndo2Q/viewform?c=0&w=1). Si quieres actualizar o corregir un error en los datos por favor abre un 'issue' [en el repo](https://github.com/ecoinfAEET/MembersInfo) o escribe a ecoinf.aeet@gmail.com.**
 
 
 
@@ -36,7 +38,7 @@ print_member <- function(member) {
   tw.handle <- member$`Cuenta de Twitter`
   if (!is.na(tw.handle)) {
       tw.handle <- sub("@", "", member$`Cuenta de Twitter`)
-      cat("![](", paste0("https://twitter.com/", tw.handle, "/profile_image?size=bigger"), ")\n", sep = "")
+      cat("![](", paste0("https://twitter.com/", tw.handle, "/profile_image?size=original"), ")\n", sep = "")
   }
 
   
