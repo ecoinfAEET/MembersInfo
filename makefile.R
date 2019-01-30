@@ -20,25 +20,27 @@ if (nrow(newmembers) > 0) {
 
 
 ## get locations for map
-library(opencage)  # requires free API key
+# library(opencage)  # requires free API key
+#
+# nocoords <- dplyr::filter(allmembers, is.na(lat) | is.na(lon)) %>%
+#   dplyr::select(`Afiliación`) %>%
+#   distinct()
+#
+# georef <- lapply(nocoords$Afiliación, opencage_forward, language = "es",
+#                  limit = 1, countrycode = "ES",
+#                  no_annotations = TRUE, no_record = TRUE,
+#                  add_request = FALSE)
+# nocoords$lon <- unlist(lapply(georef, function(x) {y <- x$results$geometry.lng; y[is.null(y)] <- NA; y}))
+# nocoords$lat <- unlist(lapply(georef, function(x) {y <- x$results$geometry.lat; y[is.null(y)] <- NA; y}))
+#
+#
+# allmembers <- allmembers %>%
+#   dplyr::filter(is.na(lat) | is.na(lon)) %>%
+#   dplyr::select(-lon, -lat) %>%
+#   left_join(nocoords, by = "Afiliación") %>%
+#   bind_rows(dplyr::filter(allmembers, !is.na(lat)))
 
-nocoords <- dplyr::filter(allmembers, is.na(lat) | is.na(lon)) %>%
-  dplyr::select(`Afiliación`) %>%
-  distinct()
 
-georef <- lapply(nocoords$Afiliación, opencage_forward, language = "es",
-                 limit = 1, countrycode = "ES",
-                 no_annotations = TRUE, no_record = TRUE,
-                 add_request = FALSE)
-nocoords$lon <- unlist(lapply(georef, function(x) {y <- x$results$geometry.lng; y[is.null(y)] <- NA; y}))
-nocoords$lat <- unlist(lapply(georef, function(x) {y <- x$results$geometry.lat; y[is.null(y)] <- NA; y}))
-
-
-allmembers <- allmembers %>%
-  dplyr::filter(is.na(lat) | is.na(lon)) %>%
-  dplyr::select(-lon, -lat) %>%
-  left_join(nocoords, by = "Afiliación") %>%
-  bind_rows(dplyr::filter(allmembers, !is.na(lat)))
 
 readr::write_csv(allmembers, "MembersInfo.csv")
 
