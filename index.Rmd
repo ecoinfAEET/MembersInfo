@@ -113,7 +113,7 @@ datos <- members %>%
          Web = `Pagina web`,
          GitHub = `Cuenta de GitHub`,
          Twitter = `Cuenta de Twitter`) %>%
-  dplyr::select(Nombre, `Afiliación`, Keywords, Intereses, Web, GitHub, Twitter)
+  dplyr::select(Nombre, `Afiliación`, Keywords, Intereses, Web, GitHub, Twitter, lon, lat)
 
 ## Create personal link
 # Use Web, otherwise twitter, otherwise GitHub
@@ -138,5 +138,26 @@ datos.dt <- datos %>%
   rename(Nombre = Name.linked)
 
 datatable(datos.dt, escape = FALSE, rownames = FALSE)
+```
+
+
+
+
+
+
+
+```{r eval=FALSE}
+
+# do not include map yet (too many errors in coordinates)
+
+library(leaflet)
+
+locs <- datos %>%
+  dplyr::filter(!is.na(lon), !is.na(lat))
+
+leaflet(locs) %>%
+  addTiles() %>%
+  addMarkers(~lon, ~lat, popup = ~Name.linked)
+  
 ```
 
