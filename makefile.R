@@ -14,7 +14,7 @@ newmembers <- dplyr::filter(formdata, !Timestamp %in% allmembers$Timestamp)
 if (nrow(newmembers) > 0) {
   newmembers$lat <- NA
   newmembers$lon <- NA
-  stopifnot(ncol(newmembers) == ncol(membersinfo))
+  stopifnot(ncol(newmembers) == ncol(allmembers))
   allmembers <- dplyr::bind_rows(allmembers, newmembers)
 }
 
